@@ -4,32 +4,23 @@ pipeline {
         cron('*/3 * * * *')
     } 
     stages {
-        stage('Something changed, but not requirements') {
+        stage('Pull changes') {
             when {
-                allOf {
-                    changeset "*"
-                    not {
-                        changeset "*requirements.txt"
-                    }
-                }
-                
+                changeset "*"
             }
             steps {
-                echo 'Executing build because changes were detected'
+                echo 'Merging changes'
                 script {
                     echo "Changeset: ${currentBuild.changeSets}"
                 }
             }
         }
-        stage('Requirements changed') {
+        stage('Rebuild environment') {
             when {
-                allOf {
-                    changeset "*requirements.txt"
-                }
-                
+                    changeset "*requirements.txt"             
             }
             steps {
-                echo 'Executing build because changes were detected'
+                echo 'Rebuilding because requirements changed'
                 script {
                     echo "Changeset: ${currentBuild.changeSets}"
                 }
