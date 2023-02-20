@@ -13,13 +13,16 @@ pipeline {
                 echo 'Rebuilding because requirements changed'
                 script {
                     if (fileExists('venv')) {
-                        def output = powershell(returnStdout: true, script: '''
-                            rm -r venv
-                            python -m venv venv
-                            '''
-                        )
-                        println output
+                        def del_venv = powershell(returnStdout: true, script: 'rm -r venv')
+                        println del_venv
                     }
+                    def create_venv = powershell(returnStdout: true, script: '''
+                            python -m venv venv
+                            venv/scripts/activate
+                            pip install -r requirements.txt
+                        '''
+                    )
+                    println create_venv
                 }
             }
         }
@@ -27,7 +30,12 @@ pipeline {
             steps {
                 echo 'Running'
                 script {
-                    echo "${currentBuild.changeSets}"
+                    def run = powershell(returnStdout: true, script: '''
+                            venv/scripts/activate
+                            python main.py
+                        '''
+                    )
+                    println run
                 }
             }
         }
