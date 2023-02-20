@@ -15,6 +15,7 @@ pipeline {
                     if (fileExists('venv')) {
                         powershell '''rm -r venv'''
                         echo 'venv deleted'
+                        powershell '''python -m venv venv'''
                     }
                 }
             }
