@@ -1,1 +1,3 @@
-print("hello from main")
+import sys
+
+print(f'Executable: {sys.executable}')
