@@ -4,17 +4,7 @@ pipeline {
         cron('*/3 * * * *')
     } 
     stages {
-        stage('Pull changes') {
-            when {
-                changeset "*"
-            }
-            steps {
-                echo 'Merging changes'
-                script {
-                    echo "Changeset: ${currentBuild.changeSets}"
-                }
-            }
-        }
+
         stage('Build') {
             when {
                     changeset "*requirements.txt"             
@@ -22,7 +12,10 @@ pipeline {
             steps {
                 echo 'Rebuilding because requirements changed'
                 script {
-                    echo "Changeset: ${currentBuild.changeSets}"
+                    if (fileExists('venv')) {
+                        powershell '''rm -r venv'''
+                        echo 'venv deleted'
+                    }
                 }
             }
         }
