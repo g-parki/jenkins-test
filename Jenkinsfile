@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Stage 2') {
             steps {
-                powershell '''echo %currentBuild.changeSets%'''
+                powershell '''echo currentBuild.changeSets'''
             }
         }
     }
