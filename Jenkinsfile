@@ -13,9 +13,12 @@ pipeline {
                 echo 'Rebuilding because requirements changed'
                 script {
                     if (fileExists('venv')) {
-                        powershell '''rm -r venv'''
-                        echo 'venv deleted'
-                        powershell '''python -m venv venv'''
+                        output = powershell(returnStdout: true, script: '''
+                            rm -r venv
+                            python -m venv venv
+                            '''
+                        )
+                        println output
                     }
                 }
             }
