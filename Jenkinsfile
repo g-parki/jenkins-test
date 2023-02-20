@@ -4,17 +4,23 @@ pipeline {
         cron('*/3 * * * *')
     } 
     stages {
-        stage('Stage 1') {
+        stage('Build') {
+            when {
+                changeset "*"
+            }
             steps {
-                echo 'Hello world!' 
+                echo 'Executing build because changes were detected'
+                script {
+                    echo "Changeset: ${currentBuild.changeSets}"
+                }
             }
         }
-        stage('Stage 2') {
+        stage('Run') {
             steps {
+                echo 'Running'
                 script {
                     echo "${currentBuild.changeSets}"
                 }
-                
             }
         }
     }
