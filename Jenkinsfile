@@ -8,7 +8,7 @@ pipeline {
             when {
                 allOf {
                     changeset "*"
-                    changeset "[!requirements.txt]"
+                    changeset "[!requirements.txt]*"
                 }
                 
             }
