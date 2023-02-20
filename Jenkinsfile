@@ -11,7 +11,10 @@ pipeline {
         }
         stage('Stage 2') {
             steps {
-                echo "%currentBuild.changeSets%"
+                script {
+                    echo "${currentBuild.changeSets}"
+                }
+                
             }
         }
     }
