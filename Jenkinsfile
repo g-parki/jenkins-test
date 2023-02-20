@@ -15,7 +15,7 @@ pipeline {
                 }
             }
         }
-        stage('Rebuild environment') {
+        stage('Build') {
             when {
                     changeset "*requirements.txt"             
             }
