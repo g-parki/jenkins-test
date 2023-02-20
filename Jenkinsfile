@@ -8,7 +8,9 @@ pipeline {
             when {
                 allOf {
                     changeset "*"
-                    changeset "[!requirements.txt]*"
+                    not {
+                        changeset "*requirements.txt"
+                    }
                 }
                 
             }
