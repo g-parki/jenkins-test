@@ -2,12 +2,15 @@ pipeline {
     agent any
     triggers {
         cron('*/3 * * * *')
-    } 
+    }
     stages {
-
+        // Build environment if this is the first run or if requirements have changed
         stage('Build') {
             when {
-                    changeset "*requirements.txt"             
+                anyOf {
+                    equals(actual: currentBuild.number, expected: 1)
+                    changeset "*requirements.txt"
+                }          
             }
             steps {
                 echo 'Rebuilding because requirements changed'
