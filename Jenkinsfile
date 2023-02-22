@@ -13,7 +13,7 @@ pipeline {
                 }          
             }
             steps {
-                echo 'Rebuilding because requirements changed'
+                echo 'Building virtual environment'
                 script {
                     if (fileExists('venv')) {
                         println powershell(returnStdout: true, script: 'rm -r venv')
@@ -27,6 +27,7 @@ pipeline {
                 }
             }
         }
+        // Run code on every pipeline run
         stage('Run') {
             steps {
                 echo 'Running'
