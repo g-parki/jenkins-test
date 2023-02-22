@@ -1,4 +1,3 @@
 import sys
 
-print(f'Executable: {sys.executable}')
-print("hello basel")
+print(f'The executable is located at:\n{sys.executable}')
