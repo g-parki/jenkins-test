@@ -21,7 +21,8 @@ pipeline {
                     println powershell(returnStdout: true, script: '''
                             python -m venv venv
                             venv/scripts/activate
-                            pip install -r requirements.txt
+                            python -m pip install --upgrade pip
+                            python -m pip install -r requirements.txt
                         '''
                     )
                 }
